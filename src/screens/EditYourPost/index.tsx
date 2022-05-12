@@ -1,9 +1,11 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { useForm } from 'react-hook-form';
+import { Alert, Keyboard, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import { BackButton } from '../../components/BackButton';
 import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
-import { InputDescription } from '../../components/InputDescription';
+
+
+import { InputForm } from '../../components/InputForm';
 import theme from '../../theme';
 
 
@@ -15,10 +17,35 @@ import {
     ButtonAlign,
 } from './styles';
 
-export function EditYourPost(){
-return (
+interface FormData {
+    name: string;
+    title: string;
+    text: string;
+}
 
+export function EditYourPost(){
+const {
+    control,
+    handleSubmit,
+} = useForm()
+
+function handleEdit(form: FormData) {
+
+    const data = {
+        name: form.name,
+        title: form.title,
+        text: form.text
+    }
+    if(!data.name){
+        return Alert.alert('Digite o nome do seu usuário')
+    }
+    console.log(data)
+}
+
+return (
+<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 <Container>
+    
     <StatusBar
     barStyle="light-content"
     translucent
@@ -26,32 +53,49 @@ return (
     />
     <Header>
         <BackButton  onPress={() => {}}/>
-        <Title>Edite o {"\n"}
-        seu post</Title>
+        <Title>Edite a {"\n"}
+        postagem</Title>
     </Header>
 
     <Form>
-    <Input
+    <InputForm
+        height={50}
+        control={control}
+        name="name"
         placeholder='Usuário'
         placeholderTextColor={theme.COLORS.GREY_INPUT}
+        autoCapitalize="words"
     />
-    <Input
+    <InputForm
+        height={50}
+        control={control}
+        name="title"
         placeholder='Título'
         placeholderTextColor={theme.COLORS.GREY_INPUT}
+        autoCapitalize="sentences"
     />
 
-    <InputDescription
+    <InputForm
+        control={control}
+        height={150}
+        name="text"
         placeholder='Escreva seu post'
+        placeholderTextColor={theme.COLORS.GREY_INPUT}
         textAlignVertical='top'
         maxLength={140}
         multiline={true}
     />
 
     <ButtonAlign>
-    <Button title={'Concluir'} />
+    <Button
+    title={'Concluir'}
+    onPress={handleSubmit(handleEdit)}
+    />
     </ButtonAlign>
 
     </Form>
+    
 </Container>
+</TouchableWithoutFeedback>
 )
 }

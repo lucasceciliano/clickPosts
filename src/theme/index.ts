@@ -11,7 +11,7 @@ export default {
     PLACEHOLDER: '#E5E5E5',
     GREY: '#CDCDCD',
     GREY_INPUT: '#E5E5E5',
-    INPUT: '#4268C9',
+    INPUT: '#2F4A8F',
 
     SHAPE: '#F3F3F3',
     TITLE: '#FFFFFF',
