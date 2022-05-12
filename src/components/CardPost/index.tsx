@@ -30,7 +30,7 @@ return (
     </UserPost>
     <TitlePost>
         <Title>{data.title}</Title>
-        <Button />
+        <Button title='Visualizar' onPress={() => {}} />
     </TitlePost>
 
     
