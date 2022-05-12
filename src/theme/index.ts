@@ -10,6 +10,8 @@ export default {
     BORDER_RETANGLE: '#858DA1',
     PLACEHOLDER: '#E5E5E5',
     GREY: '#CDCDCD',
+    GREY_INPUT: '#E5E5E5',
+    INPUT: '#4268C9',
 
     SHAPE: '#F3F3F3',
     TITLE: '#FFFFFF',

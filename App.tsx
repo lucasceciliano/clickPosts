@@ -4,7 +4,7 @@ import {useFonts, Inter_300Light, Inter_500Medium, Inter_700Bold} from "@expo-go
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components/native';
 import theme from './src/theme';
-import {ViewPost} from './src/screens/ViewPost';
+import {EditYourPost} from './src/screens/EditYourPost';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -19,7 +19,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme} >
-      <ViewPost />
+      <EditYourPost />
     </ThemeProvider>
   );
 }

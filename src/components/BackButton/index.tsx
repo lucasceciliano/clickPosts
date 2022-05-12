@@ -16,7 +16,7 @@ return (
 <Container {...rest}>
     <MaterialIcons
         name='chevron-left'
-        size={24}
+        size={34}
         color={color ? color : theme.COLORS.TITLE}
     />
 </Container>

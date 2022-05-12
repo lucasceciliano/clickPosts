@@ -7,12 +7,13 @@ interface ButtonProps extends RectButtonProperties {
 }
 
 export const Container = styled(RectButton)<ButtonProps>`
-    width: 124px;
+    width: 130px;
     height: 30px;
     margin-top: 23px;
 
     background-color: ${({color, theme}) => color ? color : theme.COLORS.GREEN_LIGHT};
     border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export const Title = styled.Text`
@@ -22,4 +23,5 @@ export const Title = styled.Text`
 
     text-align: center;
     padding: 5px;
+   
 `;
