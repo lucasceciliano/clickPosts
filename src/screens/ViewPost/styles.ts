@@ -1,5 +1,7 @@
+import { FlatList, FlatListProps } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
+import { PostDTO } from '../../dtos/PostDTO';
 
 export const Container = styled.View`
     flex: 1;
@@ -12,15 +14,36 @@ export const Header = styled.View`
     background-color: ${({theme}) => theme.COLORS.BLUE_LIGHT};
 
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    padding: 30px 110px 0 20px;
+    justify-content: space-between;
+    padding: 50px 20px 10px 10px;
     
+    
+`;
+
+export const HeaderDetails = styled.View`
+     margin-right: 5px;
+     
+`;
+export const NameUser = styled.Text`
+    color: ${({theme}) => theme.COLORS.TITLE};
+    font-size: ${RFValue(25)}px;
+    font-family: ${({theme}) => theme.FONTS.TITLE};
+
+    text-align: right;
+`;
+export const EmailUser = styled.Text`
+    color: ${({theme}) => theme.COLORS.TITLE};
+    font-size: ${RFValue(15)}px;
+    font-family: ${({theme}) => theme.FONTS.TEXT};
+
+    text-align: right;
+    justify-content: flex-end;
 `;
 
 export const Content = styled.View`
     width: 95%;
-    height: 333px;
+    height: 350px;
     border: ${({theme}) => theme.COLORS.BORDER_RETANGLE};
     border-radius: 10px;
     border-width: 1px;
@@ -73,6 +96,13 @@ export const ButtonDetail = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    
+`;
+
+export const CardViewPostList = styled(FlatList as new (props: FlatListProps<PostDTO>) => FlatList<PostDTO>).attrs({
+
+    showsVerticalScrollIndicator: false
+})`
+
 `;
 

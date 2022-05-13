@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 import { FlatList, FlatListProps } from 'react-native';
-import {PostDTO} from '../../dtos/PostDTO';
-import React from 'react';
+import {UserDTO} from '../../dtos/UserDTO';
 
 export const Container = styled.View`
     flex: 1;
@@ -18,7 +17,7 @@ export const Header = styled.View`
     padding: 30px 0px;
 `;
 
-export const CardPostsList = styled( FlatList as new (props: FlatListProps<PostDTO>) => FlatList<PostDTO>).attrs({
+export const CardPostsList = styled( FlatList as new (props: FlatListProps<UserDTO>) => FlatList<UserDTO>).attrs({
     contentContainerStyle: {
         padding: 24
     },

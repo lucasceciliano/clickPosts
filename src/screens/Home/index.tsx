@@ -12,12 +12,23 @@ import {
 
 import api from '../../services/api';
 import { Load } from '../../components/Load';
+import { useNavigation } from '@react-navigation/native';
+import { UserDTO } from '../../dtos/UserDTO';
 
 
 
 export function Home(){
 
-const [post, setPost] = useState<PostDTO[]>([])
+    const navigation = useNavigation<any>()
+
+
+    function handleViewPost( name: UserDTO) {
+        navigation.navigate('ViewPost', {name})
+    }
+    
+
+
+const [user, setUser] = useState<UserDTO[]>([])
 const [loading, setLoading] = useState(true)
 
 useEffect(() => {
@@ -25,7 +36,7 @@ useEffect(() => {
     try{
      const response = await api.get('')
         
-     setPost(response.data)
+     setUser(response.data)
     } catch(error) {
         console.log(error)
     }finally {
@@ -51,11 +62,13 @@ return (
 
     {loading ? <Load /> :
     <CardPostsList
-    data={post}
+    data={user}
     keyExtractor={item => String(item.id)}
     renderItem={({ item }) =>
-        <CardPost data={item} date={undefined}  /> }
+        <CardPost data={item} onPress={() => handleViewPost(item)} />}
+        
     />
+    
 }
     
 </Container>

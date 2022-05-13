@@ -1,41 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {StatusBar} from 'react-native';
-import Clickposts from '../../assets/ClickPosts.svg';
-import {RFValue} from 'react-native-responsive-fontsize';
 import { BackButton } from '../../components/BackButton';
 
 import {
     Container,
     Header,
+    HeaderDetails,
+    NameUser,
+    EmailUser,
     Content,
     UserPost,
     Name,
-    Date,
     TitlePost,
     Title,
     Description,
     ButtonDetail,
+    CardViewPostList
 } from './styles';
 import { DeleteButton } from '../../components/DeleteButton';
 import { Button } from '../../components/Button';
 import theme from '../../theme';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { UserDTO } from '../../dtos/UserDTO';
+import axios from 'axios';
+import { PostDTO } from '../../dtos/PostDTO';
 
-interface Props {
-    name: string;
-    date: string;
-    title: string;
-    description: string;
+
+
+interface Params {
+    name: UserDTO
 }
 
-
-export function ViewPost({name, date, title, description}: Props) {
+export function ViewPost() {
 const navigation = useNavigation<any>()
+const route = useRoute()
+const {name} = route.params as Params
+
+const [post, setPost] = useState<PostDTO[]>([])
+
 
 function handleEditYourPost() {
     navigation.navigate('EditYourPost')
 }
 
+function handleBack() {
+    navigation.goBack()
+}
+
+useEffect(() => {
+    async function fetchHome() {
+        try{
+           const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+           setPost(response.data) 
+         
+        } catch(error) {
+            console.log(error)
+        }
+     }
+      fetchHome()
+    
+}, [])
 
 return (
 <Container>
@@ -44,30 +68,41 @@ return (
     translucent
     backgroundColor="transparent"
     />
-    <Header>
-        <BackButton  onPress={() => {}}/>
-        <Clickposts
-        width={RFValue(150)}
-        height={RFValue(47)}
-        />
+     <Header>
+        <BackButton  onPress={handleBack}/>
+        <HeaderDetails>
+            <NameUser>{name.name}</NameUser>
+            <EmailUser>{name.email}</EmailUser>
+        </HeaderDetails>
+
     </Header>
-
-    <Content>
-        <UserPost>
-        <Name>Leanne Graham</Name>
-        <Date>10/05/2022</Date>
-    </UserPost>
-    <TitlePost>
-        <Title>Sunt aut facere repellat provident occaecati excepturi optio reprehenderit</Title>
-        <Description>Quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto</Description>
-
-        <ButtonDetail>
-        <Button title={'Editar post'} color={theme.COLORS.YELLOW_EDIT} onPress={handleEditYourPost} />
-        <DeleteButton title={'Excluir'}  />
-        </ButtonDetail>
-    </TitlePost>
-    </Content>
     
+  
+            <CardViewPostList
+            data={post}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) =>
+            <Content >
+            <UserPost>
+            <Name>{name.name}</Name>
+        </UserPost>
+                <TitlePost>
+            <Title>{item.title}</Title>
+            <Description>{item.body}</Description>
+    
+            <ButtonDetail>
+            <Button title={'Editar post'} color={theme.COLORS.YELLOW_EDIT} onPress={handleEditYourPost} />
+            <DeleteButton title={'Excluir'}  />
+            </ButtonDetail>
+        </TitlePost>
+        </Content>}
+        />
+
+       
+   
+
+   
+
 
 </Container>
 )
