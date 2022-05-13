@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert, Keyboard, StatusBar, TouchableWithoutFeedback } from 'react-native';
@@ -39,8 +40,17 @@ function handleEdit(form: FormData) {
     if(!data.name){
         return Alert.alert('Digite o nome do seu usuário')
     }
-    console.log(data)
+    
 }
+
+const navigation = useNavigation<any>()
+
+function handleHome() {
+    
+    navigation.navigate('Home')
+    
+}
+
 
 return (
 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -89,7 +99,7 @@ return (
     <ButtonAlign>
     <Button
     title={'Concluir'}
-    onPress={handleSubmit(handleEdit)}
+    onPress={(handleSubmit(handleEdit), handleHome)}
     />
     </ButtonAlign>
 

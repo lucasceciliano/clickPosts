@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useTheme } from 'styled-components';
 
@@ -11,6 +12,7 @@ interface Props {
 
 
 export function Button({title, color, ...rest}: Props){
+
 const theme = useTheme()
 
 

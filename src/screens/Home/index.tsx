@@ -1,23 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import Clickposts from '../../assets/ClickPosts.svg';
 import {RFValue} from 'react-native-responsive-fontsize';
 import { CardPost } from '../../components/CardPost';
-
+import {PostDTO} from '../../dtos/PostDTO';
 import {
     Container,
     Header,
     CardPostsList
 } from './styles';
-import { Button } from '../../components/Button';
+
+import api from '../../services/api';
+import { Load } from '../../components/Load';
+
 
 
 export function Home(){
+
 const cardData = {
     name: 'Leanne Graham',
     title: 'Sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
     date: '10/05/2022'
 }
+
+const [post, setPost] = useState<PostDTO[]>([])
+const [loading, setLoading] = useState(true)
+
+useEffect(() => {
+ async function fetchHome() {
+    try{
+     const response = await api.get('')
+     setPost(response.data)
+    } catch(error) {
+        console.log(error)
+    }finally {
+        setLoading(false)
+    }
+ }
+  fetchHome()
+}, [])
 
 return (
 <Container>
@@ -33,11 +54,14 @@ return (
         />
     </Header>
 
+    {loading ? <Load /> :
     <CardPostsList
-    data={[1,2,3,4]}
-    keyExtractor={item => String(item)}
-    renderItem={({item }) => <CardPost data={cardData} /> }
+    data={post}
+    keyExtractor={item => String(item.id)}
+    renderItem={({ item }) =>
+        <CardPost data={item} /> }
     />
+}
     
 </Container>
 )

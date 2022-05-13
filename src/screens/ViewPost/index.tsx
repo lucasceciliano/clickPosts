@@ -19,6 +19,7 @@ import {
 import { DeleteButton } from '../../components/DeleteButton';
 import { Button } from '../../components/Button';
 import theme from '../../theme';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
     name: string;
@@ -29,6 +30,13 @@ interface Props {
 
 
 export function ViewPost({name, date, title, description}: Props) {
+const navigation = useNavigation<any>()
+
+function handleEditYourPost() {
+    navigation.navigate('EditYourPost')
+}
+
+
 return (
 <Container>
     <StatusBar
@@ -54,7 +62,7 @@ return (
         <Description>Quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto</Description>
 
         <ButtonDetail>
-        <Button title={'Editar post'} color={theme.COLORS.YELLOW_EDIT} />
+        <Button title={'Editar post'} color={theme.COLORS.YELLOW_EDIT} onPress={handleEditYourPost} />
         <DeleteButton title={'Excluir'}  />
         </ButtonDetail>
     </TitlePost>
