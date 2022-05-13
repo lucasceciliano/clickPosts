@@ -9,7 +9,7 @@ interface ButtonProps extends RectButtonProperties {
 export const Container = styled(RectButton)<ButtonProps>`
     width: 130px;
     height: 30px;
-    margin-top: 23px;
+    margin-top: 40px;
 
     background-color: ${({color, theme}) => color ? color : theme.COLORS.GREEN_LIGHT};
     border-radius: 10px;

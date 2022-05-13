@@ -1,4 +1,6 @@
-export interface PostDTO {
+import { UserDTO } from "./UserDTO";
+
+export interface PostDTO extends UserDTO {
     
     userId: number;
     id: number

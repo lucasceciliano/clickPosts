@@ -13,9 +13,9 @@ export const Header = styled.View`
     height: 165px;
     background-color: ${({theme}) => theme.COLORS.BLUE_LIGHT};
 
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    padding: 100px 68px;
+    padding: 30px 0px;
 `;
 
 export const CardPostsList = styled( FlatList as new (props: FlatListProps<PostDTO>) => FlatList<PostDTO>).attrs({

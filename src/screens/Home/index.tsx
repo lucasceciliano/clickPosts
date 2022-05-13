@@ -17,12 +17,6 @@ import { Load } from '../../components/Load';
 
 export function Home(){
 
-const cardData = {
-    name: 'Leanne Graham',
-    title: 'Sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-    date: '10/05/2022'
-}
-
 const [post, setPost] = useState<PostDTO[]>([])
 const [loading, setLoading] = useState(true)
 
@@ -30,6 +24,7 @@ useEffect(() => {
  async function fetchHome() {
     try{
      const response = await api.get('')
+        
      setPost(response.data)
     } catch(error) {
         console.log(error)
@@ -59,7 +54,7 @@ return (
     data={post}
     keyExtractor={item => String(item.id)}
     renderItem={({ item }) =>
-        <CardPost data={item} /> }
+        <CardPost data={item} date={undefined}  /> }
     />
 }
     
