@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
-  Alert,
   Keyboard,
   StatusBar,
   TouchableWithoutFeedback,
@@ -16,11 +15,14 @@ import { InputForm } from "../../components/InputForm";
 import theme from "../../theme";
 
 import { Container, Header, Title, Form, ButtonAlign } from "./styles";
-import { UserDTO } from "../../dtos/UserDTO";
 
 interface FormData {
   title: string;
   text: string;
+}
+
+interface Params {
+  post: PostDTO;
 }
 
 export function EditYourPost() {
@@ -28,10 +30,42 @@ export function EditYourPost() {
   const { control, handleSubmit, reset } = useForm();
 
   const navigation = useNavigation<any>();
+  const route = useRoute();
+  const { post } = route.params as Params;
 
   function handleBack() {
     navigation.goBack("ViewPost");
   }
+
+  
+
+  function handleEdit(form: FormData) {
+
+    const data = { 
+        title: form.title,  
+        text: form.text
+    }
+    
+    try {
+        axios.put('https://jsonplaceholder.typicode.com/posts/1', {
+          data,
+          id: post.id
+        })
+        .then((data) => {
+            console.log(data)
+            navigation.navigate('ViewPost')
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+useEffect(() => {
+    axios.get(`https://jsonplaceholder.typicode.com/posts/${post.id}`)
+    .then((response) => {
+      reset(response.data)
+    })
+})
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -71,7 +105,7 @@ export function EditYourPost() {
           />
 
           <ButtonAlign>
-            <Button title={"Concluir"} onPress={() => {}} />
+            <Button title={"Concluir"} onPress={() => handleSubmit(handleEdit)} />
           </ButtonAlign>
         </Form>
       </Container>

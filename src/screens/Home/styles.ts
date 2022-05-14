@@ -24,4 +24,9 @@ export const CardPostsList = styled( FlatList as new (props: FlatListProps<UserD
     showsVerticalScrollIndicator: false
 })`
 
-`;  
+`; 
+
+export const Create = styled.View`
+    align-items: center;
+    margin-bottom: 20px;
+`;

@@ -7,6 +7,7 @@ import {
 
 interface Props {
    title: string;
+   onPress: () => void
 }
 
 export function DeleteButton({title, ...rest}: Props){
