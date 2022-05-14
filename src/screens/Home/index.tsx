@@ -3,7 +3,6 @@ import {StatusBar} from 'react-native';
 import Clickposts from '../../assets/ClickPosts.svg';
 import {RFValue} from 'react-native-responsive-fontsize';
 import { CardPost } from '../../components/CardPost';
-import {PostDTO} from '../../dtos/PostDTO';
 import {
     Container,
     Header,
@@ -14,6 +13,7 @@ import api from '../../services/api';
 import { Load } from '../../components/Load';
 import { useNavigation } from '@react-navigation/native';
 import { UserDTO } from '../../dtos/UserDTO';
+import { PostDTO } from '../../dtos/PostDTO';
 
 
 
@@ -35,7 +35,6 @@ useEffect(() => {
  async function fetchHome() {
     try{
      const response = await api.get('')
-        
      setUser(response.data)
     } catch(error) {
         console.log(error)
@@ -45,6 +44,8 @@ useEffect(() => {
  }
   fetchHome()
 }, [])
+
+
 
 return (
 <Container>
@@ -65,7 +66,7 @@ return (
     data={user}
     keyExtractor={item => String(item.id)}
     renderItem={({ item }) =>
-        <CardPost data={item} onPress={() => handleViewPost(item)} />}
+        <CardPost data={item} onPress={() => handleViewPost(item)}  />}
         
     />
     

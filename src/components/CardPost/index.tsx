@@ -13,6 +13,7 @@ import {
 } from './styles';
 import { RectButtonProps } from 'react-native-gesture-handler';
 import { UserDTO } from '../../dtos/UserDTO';
+import { PostDTO } from '../../dtos/PostDTO';
 
 interface Props extends RectButtonProps  {
     data: UserDTO;
@@ -24,12 +25,10 @@ export function CardPost({ data, ...rest}: Props){
 
 
     function handleViewPost() {
-        navigation.navigate('ViewPost')
+        navigation.navigate('CreatePost')
     }
 
-//function handleUser() {
-  //  navigation.navigate('User')
-//}
+
 
 const date = format(toDate(0), 'dd/MM/yyyy')
 
@@ -46,7 +45,7 @@ return (
         
                 <Title>{data.email}</Title>
         
-        <Button title='Visualizar' onPress={() => {}} />
+        <Button title='Visualizar' onPress={ handleViewPost} />
     </TitlePost>
 
     

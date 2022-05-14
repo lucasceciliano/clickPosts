@@ -8,27 +8,21 @@ import {
     HeaderDetails,
     NameUser,
     EmailUser,
-    Content,
-    UserPost,
-    Name,
-    TitlePost,
-    Title,
-    Description,
-    ButtonDetail,
     CardViewPostList
 } from './styles';
 import { DeleteButton } from '../../components/DeleteButton';
-import { Button } from '../../components/Button';
-import theme from '../../theme';
+
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { UserDTO } from '../../dtos/UserDTO';
 import axios from 'axios';
 import { PostDTO } from '../../dtos/PostDTO';
+import { CardUser } from '../../components/CardUser';
 
 
 
 interface Params {
     name: UserDTO
+    id: PostDTO
 }
 
 export function ViewPost() {
@@ -39,8 +33,8 @@ const {name} = route.params as Params
 const [post, setPost] = useState<PostDTO[]>([])
 
 
-function handleEditYourPost() {
-    navigation.navigate('EditYourPost')
+function handleEditYourPost(id: PostDTO) {
+    navigation.navigate('EditYourPost', {id, name,})
 }
 
 function handleBack() {
@@ -61,6 +55,8 @@ useEffect(() => {
     
 }, [])
 
+
+
 return (
 <Container>
     <StatusBar
@@ -77,25 +73,14 @@ return (
 
     </Header>
     
-  
+        
             <CardViewPostList
             data={post}
             keyExtractor={item => String(item.id)}
             renderItem={({ item }) =>
-            <Content >
-            <UserPost>
-            <Name>{name.name}</Name>
-        </UserPost>
-                <TitlePost>
-            <Title>{item.title}</Title>
-            <Description>{item.body}</Description>
-    
-            <ButtonDetail>
-            <Button title={'Editar post'} color={theme.COLORS.YELLOW_EDIT} onPress={handleEditYourPost} />
-            <DeleteButton title={'Excluir'}  />
-            </ButtonDetail>
-        </TitlePost>
-        </Content>}
+            
+                <CardUser data={item} onPress={() => handleEditYourPost(item)} />
+            }
         />
 
        

@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert, Keyboard, StatusBar, TouchableWithoutFeedback } from 'react-native';
@@ -6,8 +8,9 @@ import { Button } from '../../components/Button';
 
 
 import { InputForm } from '../../components/InputForm';
+import { PostDTO } from '../../dtos/PostDTO';
+import { UserDTO } from '../../dtos/UserDTO';
 import theme from '../../theme';
-
 
 import {
     Container,
@@ -19,7 +22,7 @@ import {
 
 interface FormData {
     name: string;
-    title: string;
+    email: string;
     text: string;
 }
 
@@ -29,18 +32,35 @@ const {
     handleSubmit,
 } = useForm()
 
+const navigation = useNavigation<any>()
+
+function handleBack() {
+    navigation.goBack("Home");
+  }
+
 function handleEdit(form: FormData) {
 
     const data = {
         name: form.name,
-        title: form.title,
+        title: form.email,
         text: form.text
     }
     if(!data.name){
         return Alert.alert('Digite o nome do seu usuário')
     }
-    console.log(data)
+    
+    try {
+        axios.post('https://jsonplaceholder.typicode.com/users', data)
+        .then(() => {
+            console.log(data)
+            navigation.navigate('Home')
+        })
+    } catch (error) {
+        console.log(error)
+    }
 }
+
+
 
 return (
 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -52,7 +72,7 @@ return (
     backgroundColor="transparent"
     />
     <Header>
-        <BackButton  onPress={() => {}}/>
+        <BackButton  onPress={handleBack}/>
         <Title>Criar uma {"\n"}
         postagem</Title>
     </Header>
@@ -69,7 +89,7 @@ return (
     <InputForm
         height={50}
         control={control}
-        name="title"
+        name="email"
         placeholder='Título'
         placeholderTextColor={theme.COLORS.GREY_INPUT}
         autoCapitalize="sentences"
@@ -99,3 +119,5 @@ return (
 </TouchableWithoutFeedback>
 )
 }
+
+

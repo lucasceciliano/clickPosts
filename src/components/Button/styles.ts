@@ -1,12 +1,12 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { RectButton, RectButtonProperties } from 'react-native-gesture-handler';
+import { BorderlessButton, RectButtonProperties } from 'react-native-gesture-handler';
 
 interface ButtonProps extends RectButtonProperties {
     color: string;
 }
 
-export const Container = styled(RectButton)<ButtonProps>`
+export const Container = styled(BorderlessButton)<ButtonProps>`
     width: 130px;
     height: 30px;
     margin-top: 40px;
